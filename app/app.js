@@ -23,14 +23,32 @@ angular
       .state('login', {
         url: '/login',
         templateUrl: 'auth/login.html',
-        controller: 'AuthCtrl as authCtrl'
+        controller: 'AuthCtrl as authCtrl',
+        resolve: {
+            requireNoAuth: function($state, Auth) {
+                return Auth.$requireAuth().then(function(auth) {
+                    $state.go('home');
+                }, function(error) {
+                    return;
+                });
+            }
+        }
       })
       .state('register', {
         url: '/register',
         templateUrl: 'auth/register.html',
-        controller: 'AuthCtrl as authCtrl'
+        controller: 'AuthCtrl as authCtrl',
+        resolve: {
+            requireNoAuth: function($state, Auth) {
+                return Auth.$requireAuth().then(function(auth) {
+                    $state.go('home');
+                }, function(error) {
+                    return;
+                });
+            }
+        }
       });
 
     $urlRouterProvider.otherwise('/');
   })
-  .constant('FirebaseUrl', 'https://calascionecfireslack.firebaseio.com/');
+  .constant('FirebaseUrl', 'https://calascionefireslack.firebaseio.com/');
