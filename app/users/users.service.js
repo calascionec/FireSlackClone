@@ -9,6 +9,9 @@ angular.module('angularfireSlackApp').factory('Users', function($firebaseArray, 
         getDisplayName: function(uid) {
             return users.$getRecord(uid).displayName;
         },
+        getGravatar: function(uid) {
+            return '//www.gravatar.com/avatar/' + users.$getRecord(uid).emailHash;
+        },
         all: users
     };
 
